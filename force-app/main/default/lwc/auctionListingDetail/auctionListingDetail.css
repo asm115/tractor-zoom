@@ -20,6 +20,7 @@
 .bid-history {
     border-top: 1px solid #dddbda;
     padding-top: 1rem;
+    margin-top: 1rem;
 }
 
 .category-tractor { background-color: #e8f5e9; color: #1b5e20; }

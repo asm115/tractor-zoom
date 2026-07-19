@@ -45,6 +45,13 @@ public with sharing class BidController {
             listing.Current_Bidder__c = bidderName;
             update listing;
 
+            Bid__c newBid = new Bid__c();
+            newBid.Auction_Listing__c = listing.Id;
+            newBid.Amount__c = amount;
+            newBid.Bid_Time__c = DateTime.now();
+            newBid.Bidder_Name__c = bidderName;
+            insert newBid;
+
             Bid_Placed__e evt = new Bid_Placed__e(
                 Listing_Id__c = listing.Id,
                 Bidder_Name__c = bidderName,
@@ -53,11 +60,7 @@ public with sharing class BidController {
             );
             EventBus.publish(evt);
 
-            BidWrapper result = new BidWrapper();
-            result.id = listing.Id;
-            result.bidderName = bidderName;
-            result.amount = amount;
-            result.listingId = listing.Id;
+            BidWrapper result = wrapBid(newBid);
             return result;
 
         } catch (AuraHandledException e) {
@@ -67,5 +70,29 @@ public with sharing class BidController {
             Database.rollback(sp);
             throw new AuraHandledException('Failed to place bid: ' + e.getMessage());
         }
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static List<BidWrapper> getBidsInReverseChronologicalOrder(Id auctionListingId) {
+        List<Bid__c> bids = [
+            SELECT Id, Amount__c, Bidder_Name__c, Auction_Listing__c
+            FROM Bid__c
+            WHERE Auction_Listing__c = :auctionListingId
+            ORDER BY Bid_Time__c DESC, Amount__c DESC
+        ];
+        List<BidWrapper> wrappers = new List<BidWrapper>();
+        for (Bid__c bid : bids) {
+            wrappers.add(wrapBid(bid));
+        }
+        return wrappers;
+    }
+
+    private static BidWrapper wrapBid(Bid__c bidRecord) {
+        BidWrapper wrapper = new BidWrapper();
+        wrapper.id = bidRecord.Id;
+        wrapper.bidderName = bidRecord.Bidder_Name__c;
+        wrapper.amount = bidRecord.Amount__c;
+        wrapper.listingId = bidRecord.Auction_Listing__c;
+        return wrapper;
     }
 }

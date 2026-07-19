@@ -1,0 +1,8 @@
+<template>
+    <div class="slds-text-heading_medium">
+        Bids
+    </div>
+    <template for:each={bidRecordsForDisplay} for:item="bid">
+        <c-bid-list-item key={bid.id} bid={bid} highest-bid={highestBid}></c-bid-list-item>
+    </template>
+</template>

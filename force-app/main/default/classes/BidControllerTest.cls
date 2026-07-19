@@ -113,4 +113,21 @@ private class BidControllerTest {
         System.assertEquals(14000, updated.Current_Bid__c);
         System.assertEquals('John Doe', updated.Current_Bidder__c);
     }
+
+    @IsTest
+    static void testBidPersistence() {
+        Auction_Listing__c listing = [SELECT Id FROM Auction_Listing__c LIMIT 1];
+
+        Test.startTest();
+        BidController.placeBid(listing.Id, 'Jane Smith', 12000);
+        BidController.placeBid(listing.Id, 'John Doe', 14000);
+        BidController.placeBid(listing.Id, 'Jane Smith', 15000);
+        Test.stopTest();
+
+        List<BidController.BidWrapper> bids = BidController.getBidsInReverseChronologicalOrder(listing.Id);
+        Assert.areEqual(3, bids.size());
+        Assert.areEqual(15000, bids[0].amount);
+        Assert.areEqual(14000, bids[1].amount);
+        Assert.areEqual(12000, bids[2].amount);
+    }
 }

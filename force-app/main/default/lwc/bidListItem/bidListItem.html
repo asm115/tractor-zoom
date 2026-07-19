@@ -1,0 +1,22 @@
+<template>
+    <template lwc:if={isHighestBid}>
+        <div class="slds-grid slds-text-color_success slds-text-title_bold">
+            <div class="slds-col slds-size_1-of-2">
+                {bid.bidderName}
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                {bid.amount} (highest)
+            </div>
+        </div>
+    </template>
+    <template lwc:else>
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-2">
+                {bid.bidderName}
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                {bid.amount}
+            </div>
+        </div>
+    </template>
+</template>

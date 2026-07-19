@@ -42,6 +42,9 @@
                         onbidsuccess={handleBidSuccess}>
                     </c-bid-form>
                 </template>
+                <div class="bid-history">
+                    <c-bid-list listing-id={listingId}></c-bid-list>
+                </div>
             </div>
         </lightning-card>
     </template>
