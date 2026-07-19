@@ -5,5 +5,5 @@
     <eventType>HighVolume</eventType>
     <label>Bid Placed</label>
     <pluralLabel>Bids Placed</pluralLabel>
-    <publishBehavior>PublishImmediately</publishBehavior>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
 </CustomObject>

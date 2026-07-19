@@ -1,7 +1,5 @@
 import { LightningElement, api } from 'lwc';
 
-const FALLBACK_IMAGE = 'https://placehold.co/400x200/e8e8e8/666?text=No+Image';
-
 const CATEGORY_COLORS = {
     Tractor: 'slds-badge slds-badge_lightest category-tractor',
     Combine: 'slds-badge slds-badge_lightest category-combine',
@@ -19,14 +17,6 @@ export default class AuctionListingCard extends LightningElement {
             bubbles: true,
             composed: true
         }));
-    }
-
-    handleImageError(event) {
-        event.target.src = FALLBACK_IMAGE;
-    }
-
-    get imageUrl() {
-        return this.listing && this.listing.imageUrl ? this.listing.imageUrl : FALLBACK_IMAGE;
     }
 
     get currentBidDisplay() {

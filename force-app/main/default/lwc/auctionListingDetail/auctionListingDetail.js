@@ -1,4 +1,4 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import getListing from '@salesforce/apex/AuctionListingController.getListing';
 import { subscribe, unsubscribe } from 'lightning/empApi';
 
@@ -15,8 +15,8 @@ export default class AuctionListingDetail extends LightningElement {
         this.loadListing();
     }
 
-    @track listing = null;
-    @track isLoading = false;
+    listing = null;
+    isLoading = false;
 
     _subscription = null;
 
