@@ -72,4 +72,16 @@ export default class AuctionApp extends LightningElement {
     get noListings() {
         return !this.isLoading && this.listings.length === 0;
     }
+
+    get listingsToDisplay() {
+        let listingsToDisplay = this.listings;
+        if (this.selectedCategory) {
+            listingsToDisplay = listingsToDisplay.filter(listing => listing.category === this.selectedCategory);
+        }
+        if (this.searchTerm) {
+            let searchTerm = this.searchTerm.toLowerCase();
+            listingsToDisplay = listingsToDisplay.filter(listing => listing.title?.toLowerCase().includes(searchTerm) || listing.description?.toLowerCase().includes(searchTerm));
+        }
+        return listingsToDisplay;
+    }
 }

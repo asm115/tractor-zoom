@@ -30,7 +30,7 @@
                 </template>
                 <template if:false={isLoading}>
                     <div class="listings-grid slds-p-around_large">
-                        <template for:each={listings} for:item="listing">
+                        <template for:each={listingsToDisplay} for:item="listing">
                             <c-auction-listing-card
                                 key={listing.id}
                                 listing={listing}
