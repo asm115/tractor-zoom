@@ -2,7 +2,18 @@ import { LightningElement, api, track } from 'lwc';
 import placeBid from '@salesforce/apex/BidController.placeBid';
 
 export default class BidForm extends LightningElement {
-    @api listingId;
+    _listingId;
+    @api
+    get listingId() {
+        return this._listingId;
+    }
+    set listingId(newValue) {
+        this._listingId = newValue;
+        this.bidderName = '';
+        this.bidAmount = null;
+        this.errorMessage = '';
+    }
+
     @api currentBid;
     @api startingPrice;
 
