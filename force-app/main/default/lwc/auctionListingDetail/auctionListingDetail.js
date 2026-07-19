@@ -5,14 +5,22 @@ import { subscribe, unsubscribe } from 'lightning/empApi';
 const FALLBACK_IMAGE = 'https://placehold.co/800x400/e8e8e8/666?text=No+Image';
 
 export default class AuctionListingDetail extends LightningElement {
-    @api listingId;
+    _listingId;
+    @api
+    get listingId() {
+        return this._listingId;
+    }
+    set listingId(newValue) {
+        this._listingId = newValue;
+        this.loadListing();
+    }
+
     @track listing = null;
     @track isLoading = false;
 
     _subscription = null;
 
     connectedCallback() {
-        this.loadListing();
         subscribe('/event/Bid_Placed__e', -1, (event) => {
             if (event.data.payload.Listing_Id__c === this.listingId) {
                 this.loadListing();
