@@ -1,0 +1,15 @@
+{
+    "orgName": "TractorZoom Farm Auction",
+    "edition": "Developer",
+    "settings": {
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true
+        },
+        "mobileSettings": {
+            "enableS1EncryptedStoragePref2": false
+        },
+        "deploymentSettings": {
+            "doesSkipAsyncApexValidation": true
+        }
+    }
+}

@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="Create New Listing" icon-name="utility:add">
+        <div class="slds-p-around_medium">
+            <template if:true={errorMessage}>
+                <div class="slds-notify slds-notify_alert slds-theme_error slds-m-bottom_small" role="alert">
+                    <span>{errorMessage}</span>
+                </div>
+            </template>
+            <lightning-input
+                type="text"
+                label="Title"
+                value={title}
+                onchange={handleTitleChange}
+                required>
+            </lightning-input>
+            <lightning-combobox
+                label="Category"
+                value={category}
+                placeholder="Select a category"
+                options={categoryOptions}
+                onchange={handleCategoryChange}>
+            </lightning-combobox>
+            <lightning-input
+                type="number"
+                label="Starting Price (USD)"
+                value={startingPrice}
+                min="1"
+                step="0.01"
+                onchange={handleStartingPriceChange}
+                required>
+            </lightning-input>
+            <lightning-input
+                type="datetime-local"
+                label="Auction End Date"
+                value={endsAt}
+                onchange={handleEndsAtChange}>
+            </lightning-input>
+            <div class="slds-m-top_medium slds-grid slds-gutters_small">
+                <lightning-button
+                    label={submitLabel}
+                    variant="brand"
+                    onclick={handleSubmit}
+                    disabled={isSubmitting}>
+                </lightning-button>
+                <lightning-button
+                    label="Cancel"
+                    onclick={handleCancel}>
+                </lightning-button>
+            </div>
+        </div>
+    </lightning-card>
+</template>

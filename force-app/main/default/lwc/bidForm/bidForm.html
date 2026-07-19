@@ -1,0 +1,34 @@
+<template>
+    <div class="bid-form slds-p-around_small">
+        <h3 class="slds-text-heading_small slds-m-bottom_small">Place a Bid</h3>
+        <template if:true={errorMessage}>
+            <div class="slds-notify slds-notify_alert slds-theme_error slds-m-bottom_small" role="alert">
+                <span>{errorMessage}</span>
+            </div>
+        </template>
+        <lightning-input
+            type="text"
+            label="Your Name"
+            value={bidderName}
+            onchange={handleNameChange}
+            required>
+        </lightning-input>
+        <lightning-input
+            type="number"
+            label="Bid Amount (USD)"
+            value={bidAmount}
+            min="1"
+            step="0.01"
+            onchange={handleAmountChange}
+            required>
+        </lightning-input>
+        <div class="slds-m-top_small">
+            <lightning-button
+                label={submitLabel}
+                variant="brand"
+                onclick={handleSubmit}
+                disabled={isSubmitting}>
+            </lightning-button>
+        </div>
+    </div>
+</template>

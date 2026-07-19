@@ -1,0 +1,48 @@
+<template>
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+    </template>
+    <template if:true={listing}>
+        <lightning-card>
+            <div class="slds-p-around_medium">
+                <div class="detail-image slds-m-bottom_medium">
+                    <img src={imageUrl} alt={listing.title} onerror={handleImageError} />
+                </div>
+                <div class="slds-grid slds-gutters_x-small slds-m-bottom_small">
+                    <span class={categoryBadgeClass}>{listing.category}</span>
+                    <span class={statusBadgeClass}>{listing.status}</span>
+                </div>
+                <h1 class="slds-text-heading_large slds-m-bottom_small">{listing.title}</h1>
+                <p class="slds-text-body_regular slds-m-bottom_medium">{listing.description}</p>
+                <div class="price-section slds-m-bottom_medium">
+                    <div class="slds-grid slds-gutters_small">
+                        <div class="price-item">
+                            <span class="slds-text-body_small slds-text-color_weak">Starting Price</span>
+                            <div class="slds-text-heading_small">{startingPriceDisplay}</div>
+                        </div>
+                        <div class="price-item">
+                            <span class="slds-text-body_small slds-text-color_weak">Current Bid</span>
+                            <div class="slds-text-heading_medium current-bid">{currentBidDisplay}</div>
+                        </div>
+                    </div>
+                    <template if:true={listing.currentBidder}>
+                        <p class="slds-text-body_small slds-m-top_x-small">
+                            Leading: <strong>{listing.currentBidder}</strong>
+                        </p>
+                    </template>
+                </div>
+                <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_medium">
+                    Ends: {formattedEndsAt}
+                </p>
+                <template if:true={isActive}>
+                    <c-bid-form
+                        listing-id={listing.id}
+                        current-bid={listing.currentBid}
+                        starting-price={listing.startingPrice}
+                        onbidsuccess={handleBidSuccess}>
+                    </c-bid-form>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

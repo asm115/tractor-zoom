@@ -1,0 +1,72 @@
+<template>
+    <div class="app-container">
+        <div class="left-panel">
+            <lightning-card title="Farm Equipment Auctions" icon-name="utility:cart">
+                <div slot="actions">
+                    <lightning-button
+                        label="New Listing"
+                        variant="brand"
+                        onclick={handleShowCreateForm}>
+                    </lightning-button>
+                </div>
+                <div class="slds-p-horizontal_small">
+                    <lightning-input
+                        type="search"
+                        label="Search listings"
+                        placeholder="Search by title or description..."
+                        value={searchTerm}
+                        onchange={handleSearchChange}>
+                    </lightning-input>
+                    <lightning-combobox
+                        label="Category"
+                        value={selectedCategory}
+                        placeholder="All Categories"
+                        options={categoryOptions}
+                        onchange={handleCategoryChange}>
+                    </lightning-combobox>
+                </div>
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+                </template>
+                <template if:false={isLoading}>
+                    <div class="listings-grid slds-p-around_large">
+                        <template for:each={listings} for:item="listing">
+                            <c-auction-listing-card
+                                key={listing.id}
+                                listing={listing}
+                                onselect={handleListingSelect}>
+                            </c-auction-listing-card>
+                        </template>
+                        <template if:true={noListings}>
+                            <p class="slds-text-body_regular slds-p-around_medium slds-text-color_weak">
+                                No auctions found.
+                            </p>
+                        </template>
+                    </div>
+                </template>
+            </lightning-card>
+        </div>
+        <div class="right-panel">
+            <template if:true={showCreateForm}>
+                <c-create-listing-form
+                    oncreated={handleListingCreated}
+                    oncancel={handleCreateCancel}>
+                </c-create-listing-form>
+            </template>
+            <template if:false={showCreateForm}>
+                <template if:true={selectedListingId}>
+                    <c-auction-listing-detail
+                        listing-id={selectedListingId}
+                        onbidsuccess={handleBidSuccess}>
+                    </c-auction-listing-detail>
+                </template>
+                <template if:false={selectedListingId}>
+                    <div class="empty-state slds-p-around_large slds-text-align_center">
+                        <lightning-icon icon-name="utility:cart" size="large" class="slds-m-bottom_medium"></lightning-icon>
+                        <p class="slds-text-heading_medium">Select an auction to view details</p>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

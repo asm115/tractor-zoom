@@ -1,0 +1,19 @@
+<template>
+    <div class={cardClass} onclick={handleClick} role="button" tabindex="0">
+        <div class="card-body slds-p-around_small">
+            <div class="slds-grid slds-gutters_x-small slds-m-bottom_x-small">
+                <span class={categoryBadgeClass}>{listing.category}</span>
+                <span class={statusBadgeClass}>{listing.status}</span>
+            </div>
+            <h3 class="slds-text-heading_small slds-truncate">{listing.title}</h3>
+            <div class="slds-m-top_x-small">
+                <span class="slds-text-body_small slds-text-color_weak">Current Bid: </span>
+                <span class="slds-text-body_regular slds-text-color_success bid-amount">{currentBidDisplay}</span>
+            </div>
+            <c-auction-countdown-timer
+                ends-at={listing.endsAt}
+                status={listing.status}>
+            </c-auction-countdown-timer>
+        </div>
+    </div>
+</template>

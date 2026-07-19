@@ -1,0 +1,5 @@
+SELECT Id, Title__c, Category__c, Starting_Price__c, Current_Bid__c,
+       Current_Bidder__c, Status__c, Ends_At__c
+FROM Auction_Listing__c
+WHERE Status__c = 'Active'
+ORDER BY Ends_At__c ASC

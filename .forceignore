@@ -1,0 +1,8 @@
+# Ignore local SFDX config files
+.sfdx
+.localdevserver
+
+# Ignore LWC Jest test files
+**/__tests__/**
+**/jsconfig.json
+**/.eslintrc.json

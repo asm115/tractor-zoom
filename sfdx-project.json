@@ -1,0 +1,11 @@
+{
+    "projectName": "farm-auction",
+    "namespace": "",
+    "sourceApiVersion": "62.0",
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true
+        }
+    ]
+}
